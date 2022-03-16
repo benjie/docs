@@ -268,3 +268,49 @@ Please do not prefixes with `$`
 - $ command --arg # do not
 + command --arg # do
 ```
+
+### Fetch Latest Version from GitHub
+
+If you have a code examples which should use the latest available release
+version, use:
+
+````
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">
+{`The most recent version for Ory Kratos is: ${useLatestRelease('kratos')}`}
+</CodeBlock>
+```
+````
+
+## Trouble Shooting
+
+### MDX Code Examples Fail to Render
+
+If your MDX code examples fail, it is possible that the reason is linebreaks
+
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`this
+will
+
+break the parser`}</CodeBlock>
+```
+
+because these line breaks are interpreted by Markdown as the beginning of a new
+paragraph. To resolve this, you need to add escaped the newline in the code
+block:
+
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`this
+will
+\
+NOT break the parser`}</CodeBlock>
+```
